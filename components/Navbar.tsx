@@ -1,12 +1,17 @@
 "use client"
 
-import { Sparkles, Moon, Sun } from "lucide-react"
+import { Sparkles, Moon, Sun, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { useAuth } from "@/context/AuthContext"
+import { useRouter } from "next/navigation"
 
 export function Navbar() {
   const [isDark, setIsDark] = useState(false)
+  const { user, logout, loading } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -26,6 +31,15 @@ export function Navbar() {
     } else {
       document.documentElement.classList.remove('dark')
       localStorage.setItem('theme', 'light')
+    }
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+      router.push('/')
+    } catch (error) {
+      console.error('Error logging out:', error)
     }
   }
 
@@ -60,6 +74,35 @@ export function Navbar() {
                 Dashboard
               </Button>
             </Link>
+            
+            {!loading && (
+              <>
+                {user ? (
+                  <div className="flex items-center gap-2">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={user.photoURL || undefined} alt={user.displayName || "User"} />
+                      <AvatarFallback>
+                        {user.displayName?.charAt(0) || user.email?.charAt(0) || "U"}
+                      </AvatarFallback>
+                    </Avatar>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
+                    </Button>
+                  </div>
+                ) : (
+                  <Link href="/login">
+                    <Button size="sm">
+                      Login
+                    </Button>
+                  </Link>
+                )}
+              </>
+            )}
           </nav>
         </div>
       </div>
