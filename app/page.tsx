@@ -2,7 +2,7 @@
 
 import { Navbar } from "@/components/Navbar"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Sparkles, Zap, Shield, Users, ArrowRight, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 
@@ -184,7 +184,7 @@ export default function Home() {
               </div>
               <h3 className="mb-2 text-xl font-semibold">Get Human Content</h3>
               <p className="text-muted-foreground">
-                Click "Humanize" and instantly receive natural, engaging content that sounds genuinely human-written.
+                Click &ldquo;Humanize&rdquo; and instantly receive natural, engaging content that sounds genuinely human-written.
               </p>
             </div>
           </div>

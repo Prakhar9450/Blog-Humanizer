@@ -35,7 +35,7 @@ Please rewrite this text to sound more human and ${toneDescription}. Only return
         },
       ],
       model: "llama-3.3-70b-versatile", // Using one of Groq's fastest models
-      temperature: 0.7,
+      temperature: 2,
       max_tokens: 2048,
     });
 
